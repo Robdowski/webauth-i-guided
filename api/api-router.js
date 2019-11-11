@@ -17,14 +17,9 @@ router.post('/hash', (req, res) => {
   // hash the password using bcryptjs
   //return it to the user
   // {password: 'original', hash: 'hashed password'}
-  bcrypt.hash(req.body, 'p254134dfa')
-  .then(hashed => {
-    res.status(200).json({password: req.body, hashed: hashed})
-  })
-  .catch(err => {
-    console.log(err)
-    res.status(500).json({message: "There was a problem hashing the password."})
-  })
+  const { password } = req.body
+  const hash = bcrypt.hashSync(password, 8);
+  res.status(200).json({ password, hash })
 
 })
 
